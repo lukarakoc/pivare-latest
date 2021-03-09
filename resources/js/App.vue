@@ -74,6 +74,12 @@
                                 <p>Točena piva</p>
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/beer-pouring' }">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Tutorijal - točenje piva</p>
+                            </router-link>
+                        </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->

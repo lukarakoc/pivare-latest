@@ -20,6 +20,12 @@ import 'flatpickr/dist/flatpickr.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import Select2 from 'v-select2-component';
 import Users from "./components/users/Users";
+import VueLazyload from 'vue-lazyload'
+import {LMap, LMarker, LTileLayer} from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+import Admin from "./components/Admin";
+import Beers from "./components/beers/Beers";
+import BeerPouring from "./components/beer-pouring/BeerPouring";
 
 
 require('./bootstrap');
@@ -49,10 +55,10 @@ Vue.use(VueRouter, VueAxios, axios);
 const routes = [
     {path: '/', name: 'Admin', component: Admin},
     {path: '/users', name: 'Users', component: Users},
-    {path: '/beers', name: 'Beers', component: Beers}
+    {path: '/beers', name: 'Beers', component: Beers},
+    {path: '/beer-pouring', name: 'BeerPouring', component: BeerPouring}
 
 ];
-import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload);
 Vue.use(BootstrapVue);
@@ -68,11 +74,6 @@ Vue.use(CKEditor);
 
 Vue.component('select2', Select2);
 Vue.use(Select2);
-
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-import 'leaflet/dist/leaflet.css';
-import Admin from "./components/Admin";
-import Beers from "./components/beers/Beers";
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
