@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('/beers', 'BeerController@getBeers');
     Route::post('/beers/store', 'BeerController@store');
-    Route::post('/beers/update', 'BeerController@update');
+    Route::post('/beers/{beer}/update', 'BeerController@update');
     Route::delete('/beers/{id}', 'BeerController@destroy');
     Route::get('/beers/{keyword}/search', 'BeerController@searchBeers');
 });

@@ -13,16 +13,17 @@
                 <form @submit.prevent="editmode ? updateBeer() : storeBeer()">
                     <div class="modal-body">
                         <div class="form-group mx-2 mt-2" v-for="(lang, i) in languages">
-                            <label :for="'name' + lang.code">Naziv točenog piva - {{ lang.code.toUpperCase() }} *</label>
+                            <label :for="'name' + lang.code">Naziv točenog piva - {{ lang.code.toUpperCase() }}
+                                *</label>
                             <input :id="'name' + lang.code"
                                    class="form-control"
                                    type="text"
                                    name="name"
                                    placeholder="Unesite naziv piva"
-                                   :class="{ 'border border-danger': beerErrors.nameErrorPresent }"
+                                   :class="{ 'border border-danger': checkIfErrorPresentNames(i) }"
                                    v-model="beerForm.names[i]">
-                            <small class="text-danger" v-if="beerErrors.nameErrorPresent">
-                                {{ beerErrors.name }}
+                            <small class="text-danger" v-if="checkIfErrorPresentNames(i)">
+                                {{ beerErrors.name[`names.${i}`][0] }}
                             </small>
                         </div>
                         <hr>
@@ -35,10 +36,10 @@
                                       placeholder="Unesite opis piva"
                                       :editor="editor"
                                       :config="editorConfig"
-                                      :class="{ 'border border-danger': beerErrors.descriptionErrorPresent }"
+                                      :class="{ 'border border-danger': checkIfErrorPresentDescription(i) }"
                                       v-model="beerForm.descriptions[i]"></ckeditor>
-                            <small class="text-danger" v-if="beerErrors.descriptionErrorPresent">
-                                {{ beerErrors.description }}
+                            <small class="text-danger" v-if="checkIfErrorPresentDescription(i)">
+                                {{ beerErrors.description[`descriptions.${i}`][0] }}
                             </small>
                         </div>
                         <hr>
@@ -55,14 +56,26 @@
                             </small>
                         </div>
                         <hr>
-                        <div class="form-group mx-2 mt-2" v-cloak>
+                        <div class="form-group mx-2 mt-2" v-cloak :class="{ 'border border-danger': this.beerErrors.photosErrorPresent}">
                             <input type="file" id="images" multiple accept="image/*"
                                    @change="handleSelects" name="images">
                             <div v-for="(image, i) in this.beerForm.images" class="mt-2">
                                 <div class="container">
-                                    <img :src="image" class="preview image" alt="image" width="150"
+                                    <img :src="image" class="preview image border" alt="image" width="150"
                                          @click="removeImage(i)">
                                     <div class="overlay" @click="removeImage(i)">
+                                        <div class="text">Click to remove</div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="form-group mx-2 mt-2" v-show="this.beerForm.loadPhotos.length > 0">
+                            <div v-for="(image, i) in this.beerForm.loadPhotos" class="mt-2">
+                                <div class="container">
+                                    <img :src="image.photo_path" class="preview image border" alt="image" width="150"
+                                         @click="addToDeleted(image.id, i)">
+                                    <div class="overlay" @click="addToDeleted(image.id, i)">
                                         <div class="text">Click to remove</div>
                                     </div>
                                 </div>
@@ -148,16 +161,18 @@ export default {
                 descriptions: [],
                 images: [],
                 videoLink: '',
+                deletePhotos: [],
+                loadPhotos: []
             },
             beerErrors: {
-                name: '',
+                name: [],
                 nameErrorPresent: false,
-                description: '',
+                description: [],
                 descriptionErrorPresent: false,
-                coverPhoto: '',
-                coverPhotoErrorPresent: false,
                 videoLink: '',
-                videoLinkErrorPresent: false
+                videoLinkErrorPresent: false,
+                photos: '',
+                photosErrorPresent: false
             }
         }
     },
@@ -175,6 +190,10 @@ export default {
                         this.languages = response.data[1];
                     }
                 })
+        },
+        addToDeleted(photoUrl, index) {
+            this.beerForm.deletePhotos.push(photoUrl);
+            this.beerForm.loadPhotos.splice(index, 1);
         },
         createBeer() {
             this.editmode = false;
@@ -202,7 +221,7 @@ export default {
                     form.append(`names[${i}]`, this.beerForm.names[i]);
                 }
 
-                if (typeof this.beerForm.descriptions[i] === 'undefined') {
+                if (typeof this.beerForm.descriptions[i] === 'undefined' || this.beerForm.descriptions[i] == '<p></p>') {
                     form.append(`descriptions[${i}]`, '');
                 } else {
                     form.append(`descriptions[${i}]`, this.beerForm.descriptions[i]);
@@ -238,13 +257,13 @@ export default {
             form.append('id', this.beerForm.id);
             for (let i = 0; i < this.languages.length; i++) {
                 form.append(`languages[${i}]`, this.languages[i]);
-                if (typeof this.beerForm.name[i] === 'undefined') {
-                    form.append(`names[]`, '');
+                if (typeof this.beerForm.names[i] === 'undefined') {
+                    form.append(`names[${i}]`, '');
                 } else {
-                    form.append(`names[]`, this.beerForm.names[i]);
+                    form.append(`names[${i}]`, this.beerForm.names[i]);
                 }
 
-                if (typeof this.beerForm.description[i] === 'undefined') {
+                if (typeof this.beerForm.descriptions[i] === 'undefined') {
                     form.append(`descriptions[${i}]`, '');
                 } else {
                     form.append(`descriptions[${i}]`, this.beerForm.descriptions[i]);
@@ -252,8 +271,12 @@ export default {
             }
             form.append('video_link', this.beerForm.videoLink);
             this.beerForm.images.forEach(image => {
-                form.append('images[]', image)
+                form.append('photos[]', image)
             });
+
+            this.beerForm.deletePhotos.forEach(image => {
+                form.append('delete_photos[]', image);
+            })
 
             const config = {headers: {'content-type': 'multipart/form-data'}};
             axios.post(`/admin/beers/${this.beerForm.id}/update`, form, config)
@@ -262,7 +285,7 @@ export default {
                     if (response.data[0] === 'success') {
                         $('#create-and-edit-modal').modal('hide');
                         EventBus.$emit('load-beers');
-                        swalSuccess("Vikendica je uspješno izmijenjena.");
+                        swalSuccess("Pivo je uspješno izmijenjeno.");
                     }
                 }).catch(error => {
                 this.storeUpdateDisabled = false;
@@ -276,42 +299,68 @@ export default {
         },
         resetBeerForm() {
             this.beerForm.id = '';
-            this.beerForm.name = [];
-            this.beerForm.description = [];
+            this.beerForm.names = [];
+            this.beerForm.descriptions = [];
             this.beerForm.images = [];
             $('#images').val('');
             this.beerForm.videoLink = '';
+            this.beerForm.deletePhotos = [];
+            this.beerForm.loadPhotos = [];
         },
         resetBeerFormErrors() {
-            this.beerErrors.name = '';
+            this.beerErrors.name = [];
             this.beerErrors.nameErrorPresent = false;
-            this.beerErrors.description = '';
+            this.beerErrors.description = [];
             this.beerErrors.descriptionErrorPresent = false;
-            this.beerErrors.coverPhoto = '';
-            this.beerErrors.coverPhotoErrorPresent = false;
             this.beerErrors.videoLink = '';
             this.beerErrors.videoLinkErrorPresent = false;
+            this.beerErrors.photos = '';
+            this.beerErrors.photosErrorPresent = false;
         },
         fillBeerForm(beer) {
             this.beerForm.id = beer.id
-            this.beerForm.name = beer.name;
-            this.beerForm.description = beer.description;
-            this.beerForm.videoLink = beer.videoLink;
-            this.loadImage = beer.cover_photo;
+            this.beerForm.names[0] = beer.name.me;
+            this.beerForm.names[1] = beer.name.en;
+            this.beerForm.descriptions[0] = beer.description.me;
+            this.beerForm.descriptions[1] = beer.description.en;
+            this.beerForm.videoLink = beer.video_link;
+            this.beerForm.loadPhotos = beer.photos;
         },
         checkForValidationErrors(errors) {
-            if (errors.hasOwnProperty('name')) {
-                this.beerErrors.name = errors["name"][0];
+
+            let names;
+            if (Object.keys(errors).some(function (key) {
+                names = key;
+                return key.startsWith("names");
+            })) {
+                this.beerErrors.name = errors;
                 this.beerErrors.nameErrorPresent = true;
             }
-            if (errors.hasOwnProperty('description')) {
-                this.beerErrors.description = errors["description"][0];
+
+            let descriptions;
+            if (Object.keys(errors).some(function (key) {
+                descriptions = key;
+                return key.startsWith("descriptions");
+            })) {
+                this.beerErrors.description = errors;
                 this.beerErrors.descriptionErrorPresent = true;
             }
+
             if (errors.hasOwnProperty('video_link')) {
                 this.beerErrors.videoLink = errors["video_link"][0];
                 this.beerErrors.videoLinkErrorPresent = true;
             }
+
+            if(errors.hasOwnProperty('photos')) {
+                this.beerErrors.photos = errors['photos'][0];
+                this.beerErrors.photosErrorPresent = true;
+            }
+        },
+        checkIfErrorPresentNames(i) {
+            return this.beerErrors.name !== '' && this.beerErrors.name[`names.${i}`] != null;
+        },
+        checkIfErrorPresentDescription(i) {
+            return this.beerErrors.description !== '' && this.beerErrors.description[`descriptions.${i}`] != null;
         },
         checkImageFileSize(imagFile, limitInMb) {
             return imagFile.size > (limitInMb * 1024 * 1024)
@@ -357,7 +406,7 @@ export default {
             });
         },
         removeImage(index) {
-            console.log(Array.from($('#images')[0].files).splice(index, 1));
+            Array.from($('#images')[0].files).splice(index, 1);
             this.beerForm.images.splice(index, 1);
         }
     },

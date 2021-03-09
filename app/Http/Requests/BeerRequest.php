@@ -53,13 +53,23 @@ class BeerRequest extends FormRequest
             'descriptions' => 'required|array|min:' . $this->languagesCount,
             'descriptions.*' => 'required|max:10000',
             'photos' => 'nullable|array',
-            'photos.*' => 'nullable|image|max:10000',
-            'video_link' => 'required|url'
+            'photos.*' => 'nullable',
+            'video_link' => 'required|url',
+            'delete_photos' => 'nullable'
         ];
     }
 
     public function messages(): array
     {
-        return parent::messages();
+        return [
+            'names.required' => 'Morate unijeti naziv na svakom jeziku',
+            'names.*.required' => 'Morate unijeti naziv na svakom jeziku',
+            'names.*.max' => 'Naziv može sadržati najviše 255 karaktera',
+            'descriptions.required' => 'Morate unijeti opis na svakom jeziku',
+            'descriptions.*.required' => 'Morate unijeti opis na svakom jeziku',
+            'descriptions.*.max' => 'Opis može sadržati najviše 10000 karaktera',
+            'photos.required' => 'Morate dodati najmanje 1 sliku',
+            'video_link.required' => 'Morate unijeti video link'
+        ];
     }
 }

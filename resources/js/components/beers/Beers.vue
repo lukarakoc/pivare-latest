@@ -36,7 +36,6 @@
                             <th class="text-center">Naziv</th>
                             <th class="text-center">Opis</th>
                             <th class="text-center">Link</th>
-                            <th class="text-center">Galerija</th>
                             <th class="text-center">Izmijeni</th>
                             <th class="text-center">Izbriši</th>
                         </tr>
@@ -52,12 +51,6 @@
                             <td class="text-center">{{ beer.name.me }}</td>
                             <td class="text-center" v-html="beer.description.me"></td>
                             <td class="text-center">{{ beer.video_link }}</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info">
-                                    <i class="fas fa-images"></i>
-                                    Galerija
-                                </button>
-                            </td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info" @click="openEditModal(beer)">
                                     <i class="fas fa-edit"></i>
