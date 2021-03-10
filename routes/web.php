@@ -38,4 +38,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/beers/{beer}/update', 'BeerController@update');
     Route::delete('/beers/{id}', 'BeerController@destroy');
     Route::get('/beers/{keyword}/search', 'BeerController@searchBeers');
+
+
+    Route::get('/beer-pouring', 'BeerPouringController@getBeerPhotos');
+    Route::post('/beer-pouring/store', 'BeerPouringController@store');
+    Route::post('/beer-pouring/{beer}/update', 'BeerPouringController@update');
+    Route::delete('/beer-pouring/{id}', 'BeerPouringController@destroy');
+    Route::get('/beer-pouring/{keyword}/search', 'BeerPouringController@searchBeerPouringTutorial');
+
 });

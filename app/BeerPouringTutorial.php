@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +15,16 @@ class BeerPouringTutorial extends Model
 
     protected $guarded = [];
     public $translatable = ['name', 'description'];
+
+    public static function searchBeerTutorials($keyword): LengthAwarePaginator
+    {
+        return self::query()
+            ->with('photos')
+            ->whereRaw('lower(name) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(description) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(video_link) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->paginate(10);
+    }
 
     public function createUser(): BelongsTo
     {
@@ -29,4 +40,6 @@ class BeerPouringTutorial extends Model
     {
         return $this->hasMany(BeerPouringTutorialPhoto::class);
     }
+
+
 }
