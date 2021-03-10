@@ -136,7 +136,7 @@ export default {
             Swal.fire({
                 icon: "warning",
                 title: "Pažnja",
-                text: "Da li ste sigurni da želite da izbrišete točeno pivo?",
+                text: "Da li ste sigurni da želite da izbrišete korak?",
                 showCancelButton: true,
                 confirmButtonColor: "#38c172",
                 cancelButtonColor: "#c51f1a",

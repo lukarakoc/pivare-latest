@@ -46,4 +46,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/beer-pouring/{id}', 'BeerPouringController@destroy');
     Route::get('/beer-pouring/{keyword}/search', 'BeerPouringController@searchBeerPouringTutorial');
 
+    Route::get('/beer-qa', 'BeerQAController@getQA');
+    Route::post('/beer-qa/store', 'BeerQAController@storeQA');
+    Route::post('/beer-qa/{beerQa}/update', 'BeerQAController@updateQA');
+    Route::delete('/beer-qa/{id}', 'BeerQAController@destroyQA');
+    Route::get('/beer-qa/{keyword}/search', 'BeerQAController@searchQA');
+
+    Route::get('/beer-qa-categories', 'BeerQAController@getBeerQACategories');
+    Route::get('/beer-qa-categories/all', 'BeerQAController@getAllBeerQACategories');
+    Route::post('/beer-qa-categories/store', 'BeerQAController@storeBeerQACategories');
+    Route::post('/beer-qa-categories/{beerQACategory}/update', 'BeerQAController@updateBeerQACategories');
+    Route::delete('/beer-qa-categories/{id}', 'BeerQAController@destroyBeerQACategories');
+    Route::get('/beer-qa-categories/{keyword}/search', 'BeerQAController@searchBeerQACategories');
 });

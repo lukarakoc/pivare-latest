@@ -26,6 +26,8 @@ import 'leaflet/dist/leaflet.css';
 import Admin from "./components/Admin";
 import Beers from "./components/beers/Beers";
 import BeerPouring from "./components/beer-pouring/BeerPouring";
+import BeerQACategories from "./components/beer-qa/BeerQACategories";
+import BeerQA from "./components/beer-qa/BeerQA";
 
 
 require('./bootstrap');
@@ -56,7 +58,9 @@ const routes = [
     {path: '/', name: 'Admin', component: Admin},
     {path: '/users', name: 'Users', component: Users},
     {path: '/beers', name: 'Beers', component: Beers},
-    {path: '/beer-pouring', name: 'BeerPouring', component: BeerPouring}
+    {path: '/beer-pouring', name: 'BeerPouring', component: BeerPouring},
+    {path: '/beer-qa-categories', name: 'BeerQACategories', component: BeerQACategories},
+    {path: '/beer-qa', name: 'BeerQA', component: BeerQA}
 
 ];
 

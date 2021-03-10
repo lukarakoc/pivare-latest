@@ -80,6 +80,21 @@
                                 <p>Tutorijal - točenje piva</p>
                             </router-link>
                         </li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/beer-qa-categories' }">
+                                <i class="fas fa-list nav-icon"></i>
+                                <p>QA kategorije</p>
+                            </router-link>
+                        </li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/beer-qa' }">
+                                <i class="fas fa-question-circle nav-icon"></i>
+                                <p>QA sekcija</p>
+                            </router-link>
+                        </li>
+
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->

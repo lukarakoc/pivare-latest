@@ -7,12 +7,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BeerPouringRequest extends FormRequest
 {
+
+    protected $languagesCount;
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
 
         return true;
@@ -23,9 +26,8 @@ class BeerPouringRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-
         $this->languagesCount = Language::count();
         return $this->is('admin/beer_pouring_tutorials/store') ? $this->createRules() : $this->updateRules();
     }
@@ -52,8 +54,8 @@ class BeerPouringRequest extends FormRequest
             'descriptions' => 'required|array|max:' . $this->languagesCount,
             'descriptions.*' => 'required|max:10000',
             'video_link' => 'required|url',
-            'photos' => 'required|array|min:1',
-            'photos.*' => 'required',
+            'photos' => 'nullable|array|min:1',
+            'photos.*' => 'nullable',
             'delete_photos' => 'nullable'
         ];
     }
