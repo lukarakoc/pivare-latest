@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +14,16 @@ class EquipmentMaintenanceTutorialStep extends Model
 
     protected $guarded = [];
     public $translatable = ['name', 'description'];
+
+    public static function searchEquipmentSteps($keyword): LengthAwarePaginator
+    {
+        return self::query()
+            ->with('photos')
+            ->whereRaw('lower(name) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(description) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(video_link) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->paginate(10);
+    }
 
     public function createUser(): BelongsTo
     {
