@@ -92,11 +92,12 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <router-link class="nav-link" :to="{ path: '/equipment-maintenance' }">
+                                    <router-link class="nav-link" :to="{ path: '/equipment-maintenance-sections' }">
                                         <i class="fas fa-cogs nav-icon"></i>
                                         <p>Održavanje opreme</p>
                                     </router-link>
                                 </li>
+
                             </ul>
                         </li>
 
