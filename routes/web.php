@@ -58,4 +58,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/beer-qa-categories/{beerQACategory}/update', 'BeerQAController@updateBeerQACategories');
     Route::delete('/beer-qa-categories/{id}', 'BeerQAController@destroyBeerQACategories');
     Route::get('/beer-qa-categories/{keyword}/search', 'BeerQAController@searchBeerQACategories');
+
+    Route::get('/equipment-maintenance-step/{id}', 'EquipmentMaintenanceStepController@getStepsBySection');
+    Route::get('/equipment-maintenance-step', 'EquipmentMaintenanceStepController@getEquipmentPhotos');
+    Route::post('/equipment-maintenance-step/store', 'EquipmentMaintenanceStepController@store');
+    Route::post('/equipment-maintenance-step/{equipmentTutorial}/update', 'EquipmentMaintenanceStepController@update');
+    Route::delete('/equipment-maintenance-step/{id}', 'EquipmentMaintenanceStepController@destroy');
+    Route::get('/equipment-maintenance-step/{keyword}/search', 'EquipmentMaintenanceStepController@searchEquipmentSteps');
+
+
+    Route::post('/equipment-maintenance-section/store', 'EquipmentMaintenanceSectionsController@store');
+    Route::post('/equipment-maintenance-section/{equipmentTutorial}/update', 'EquipmentMaintenanceSectionsController@update');
+    Route::delete('/equipment-maintenance-section/{id}', 'EquipmentMaintenanceSectionsController@destroy');
+    Route::get('/equipment-maintenance-section/{keyword}/search', 'EquipmentMaintenanceSectionsController@searchEquipmentMaintenanceSections');
 });
