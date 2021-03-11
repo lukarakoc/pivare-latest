@@ -74,27 +74,56 @@
                                 <p>Točena piva</p>
                             </router-link>
                         </li>
+
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{ path: '/beer-pouring' }">
-                                <i class="fas fa-book nav-icon"></i>
-                                <p>Tutorijal - točenje piva</p>
-                            </router-link>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Tutorijali
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-pouring' }">
+                                        <i class="fas fa-beer nav-icon"></i>
+                                        <p>Točenje piva</p>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/equipment-maintenance' }">
+                                        <i class="fas fa-cogs nav-icon"></i>
+                                        <p>Održavanje opreme</p>
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{ path: '/beer-qa-categories' }">
-                                <i class="fas fa-list nav-icon"></i>
-                                <p>QA kategorije</p>
-                            </router-link>
-                        </li>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>
+                                    QA sekcija
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-qa-categories' }">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p>QA kategorije</p>
+                                    </router-link>
+                                </li>
 
-                        <li class="nav-item">
-                            <router-link class="nav-link" :to="{ path: '/beer-qa' }">
-                                <i class="fas fa-question-circle nav-icon"></i>
-                                <p>QA sekcija</p>
-                            </router-link>
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-qa' }">
+                                        <i class="fas fa-question-circle nav-icon"></i>
+                                        <p>QA - pitanja i odgovori</p>
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
-
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->
