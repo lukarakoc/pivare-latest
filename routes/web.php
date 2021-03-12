@@ -64,11 +64,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/equipment-maintenance-step/store', 'EquipmentMaintenanceStepController@store');
     Route::post('/equipment-maintenance-step/{equipmentTutorial}/update', 'EquipmentMaintenanceStepController@update');
     Route::delete('/equipment-maintenance-step/{id}', 'EquipmentMaintenanceStepController@destroy');
-    Route::get('/equipment-maintenance-step/{keyword}/search', 'EquipmentMaintenanceStepController@searchEquipmentSteps');
+    Route::get('/equipment-maintenance-step/{sectionId}/{keyword}/search', 'EquipmentMaintenanceStepController@searchEquipmentSteps');
 
 
-    Route::post('/equipment-maintenance-section/store', 'EquipmentMaintenanceSectionsController@store');
-    Route::post('/equipment-maintenance-section/{equipmentTutorial}/update', 'EquipmentMaintenanceSectionsController@update');
-    Route::delete('/equipment-maintenance-section/{id}', 'EquipmentMaintenanceSectionsController@destroy');
-    Route::get('/equipment-maintenance-section/{keyword}/search', 'EquipmentMaintenanceSectionsController@searchEquipmentMaintenanceSections');
+    Route::get('/equipment-maintenance-sections', 'EquipmentMaintenanceSectionsController@getAllSections');
+    Route::post('/equipment-maintenance-sections/store', 'EquipmentMaintenanceSectionsController@store');
+    Route::post('/equipment-maintenance-sections/{equipmentTutorial}/update', 'EquipmentMaintenanceSectionsController@update');
+    Route::delete('/equipment-maintenance-sections/{id}', 'EquipmentMaintenanceSectionsController@destroy');
+    Route::get('/equipment-maintenance-sections/{keyword}/search', 'EquipmentMaintenanceSectionsController@searchEquipmentMaintenanceSections');
 });

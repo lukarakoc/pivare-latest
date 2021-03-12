@@ -35,9 +35,9 @@
                             <th class="text-center" width="10">ID</th>
                             <th class="text-center">Naziv</th>
                             <th class="text-center">Opis</th>
-                            <th class="text-center">Koraci</th>
-                            <th class="text-center">Izmijeni</th>
-                            <th class="text-center">Izbriši</th>
+                            <th class="text-center" width="150">Koraci</th>
+                            <th class="text-center" width="150">Izmijeni</th>
+                            <th class="text-center" width="150">Izbriši</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,8 @@
                             <td class="text-center">{{ section.name.me }}</td>
                             <td class="text-center" v-html="section.description.me"></td>
                             <td class="text-center">
-                                <router-link :to="{ name: 'EMSteps', params: { id: section.id }}">
+                                <router-link :to="{ name: 'EMSteps', params: { id: section.id }}"
+                                             class="btn btn-primary btn-sm">
                                     <i class="fas fa-shoe-prints"></i>
                                     Koraci
                                 </router-link>
@@ -96,7 +97,7 @@
                 </pagination>
             </div>
         </div>
-        <create-and-edit-e-m-section :beer="beers"/>
+        <create-and-edit-e-m-section :section="emSections"/>
     </div>
 </template>
 
@@ -106,7 +107,7 @@ import {EventBus, swalError, swalSuccess} from "../../main";
 import CreateAndEditEMSection from "./CreateAndEditEMSection";
 
 export default {
-    name: "BeerQACategories",
+    name: "EMSections",
     components: {
         Spinner,
         CreateAndEditEMSection
@@ -154,7 +155,7 @@ export default {
                             .then(response => {
                                 if (response.data[0] === 'success') {
                                     swalSuccess("Uspješno ste izbrisali sekciju!");
-                                    EventBus.$emit('load-em-sections');
+                                    EventBus.$emit('load-equipment-maintenance-sections');
                                 }
                             })
                             .catch(error => {
@@ -198,7 +199,7 @@ export default {
             url: '/equipment-maintenance-sections',
             pageName: 'Tutorijal o održavanju opreme'
         });
-        EventBus.$on('load-em-sections', () => this.loadEMSections());
+        EventBus.$on('load-equipment-maintenance-sections', () => this.loadEMSections());
     }
 }
 

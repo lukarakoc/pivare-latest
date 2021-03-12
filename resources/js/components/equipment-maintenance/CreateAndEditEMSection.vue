@@ -210,7 +210,7 @@ export default {
                     if (response.data[0] === 'success') {
                         $('#create-and-edit-modal').modal('hide');
                         EventBus.$emit('load-equipment-maintenance-sections');
-                        swalSuccess("QA kategorija je uspješno izmijenjena.");
+                        swalSuccess("Sekcija je uspješno izmijenjena.");
                     }
                 }).catch(error => {
                 this.storeUpdateDisabled = false;
@@ -273,6 +273,7 @@ export default {
     },
     mounted() {
         this.getAllLanguages();
+        console.log(this.$props)
         EventBus.$on('open-create-modal', () => this.createEMSection());
         EventBus.$on('open-edit-modal', section => this.editEMSection(section));
         $(this.$refs.createAndEditModalRef).on("hidden.bs.modal", this.clearData);

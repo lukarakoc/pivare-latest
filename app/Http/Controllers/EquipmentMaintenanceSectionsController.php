@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 class EquipmentMaintenanceSectionsController extends Controller
 {
 
+    public function getAllSections(): JsonResponse
+    {
+        return response()->json(['success', EquipmentMaintenanceTutorialSection::paginate(10)]);
+    }
 
     public function store(EquipmentMaintenanceSectionsRequest $request): JsonResponse
     {

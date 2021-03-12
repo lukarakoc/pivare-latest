@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\EquipmentMaintenanceTutorialStep;
 use App\EquipmentMaintenanceTutorialStepPhoto;
 use App\Http\Requests\EquipmentMaintenanceStepRequest;
+use App\Traits\FileHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 class EquipmentMaintenanceStepController extends Controller
 {
+
+    use FileHandler;
+
     public function getStepsBySection($id): JsonResponse
     {
         $steps = EquipmentMaintenanceTutorialStep::with('photos')->where('section_id', '=', $id)->paginate(10);
@@ -116,9 +120,9 @@ class EquipmentMaintenanceStepController extends Controller
         return response()->json(['success']);
     }
 
-    public function searchBeerPouringTutorial($keyword): JsonResponse
+    public function searchEquipmentSteps($stepId, $keyword): JsonResponse
     {
-        return response()->json(['success', EquipmentMaintenanceTutorialStep::searchEquipmentSteps($keyword)]);
+        return response()->json(['success', EquipmentMaintenanceTutorialStep::searchEquipmentSteps($stepId, $keyword)]);
     }
 
 }

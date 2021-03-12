@@ -14,7 +14,7 @@ class EquipmentMaintenanceSectionsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class EquipmentMaintenanceSectionsRequest extends FormRequest
     public function rules(): array
     {
         $this->languagesCount = Language::count();
-        return $this->is('admin/equipment-maintenance-section/store') ? $this->createRules() : $this->updateRules();
+        return $this->is('admin/equipment-maintenance-sections/store') ? $this->createRules() : $this->updateRules();
     }
 
     public function createRules(): array
@@ -46,7 +46,16 @@ class EquipmentMaintenanceSectionsRequest extends FormRequest
             'names.*' => 'required|max:255',
             'descriptions' => 'required|array|max:' . $this->languagesCount,
             'descriptions.*' => 'required|max:10000',
+        ];
+    }
 
+    public function messages()
+    {
+        return [
+            'names.required' => 'Morate unijeti naziv na svakom jeziku',
+            'names.*.required' => 'Morate unijeti naziv na svakom jeziku',
+            'descriptions.required' => 'Morate unijeti opis na svakom jeziku',
+            'descriptions.*.required' => 'Morate unijeti opis na svakom jeziku',
         ];
     }
 }

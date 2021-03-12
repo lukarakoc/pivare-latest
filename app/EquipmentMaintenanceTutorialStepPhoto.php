@@ -22,4 +22,9 @@ class EquipmentMaintenanceTutorialStepPhoto extends Model
     {
         return $this->belongsTo(User::class, 'update_user_id', 'id');
     }
+
+    public function step()
+    {
+        return $this->hasMany(EquipmentMaintenanceTutorialStep::class, 'section_id', 'id');
+    }
 }

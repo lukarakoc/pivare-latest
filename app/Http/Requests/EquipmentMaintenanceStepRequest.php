@@ -54,7 +54,22 @@ class EquipmentMaintenanceStepRequest extends FormRequest
             'video_link' => 'required|url',
             'photos' => 'nullable|array|min:1',
             'photos.*' => 'nullable',
-            'delete_photos' => 'nullable'
+            'delete_photos' => 'nullable',
+            'section_id' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'names.required' => 'Morate unijeti naziv na svakom jeziku',
+            'names.*.required' => 'Morate unijeti naziv na svakom jeziku',
+            'descriptions.required' => 'Morate unijeti opis na svakom jeziku',
+            'descriptions.*.required' => 'Morate unijeti opis na svakom jeziku',
+            'video_link.required' => 'Morate unijeti video link',
+            'video_link.url' => 'Video link nije u validnom formatu',
+            'photos.required' => 'Morate dodati slike',
+            'photos.*.required' => 'Morate dodati slike',
         ];
     }
 
