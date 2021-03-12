@@ -125,6 +125,32 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-header">Pivo i hrana</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-beer"></i>
+                                <i class="nav-icon fas fa-pizza-slice"></i>
+                                <p>
+                                    Pivo i hrana
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-food-categories' }">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p>Kategorije</p>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-qa' }">
+                                        <i class="fas fa-question-circle nav-icon"></i>
+                                        <p>Članci</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->

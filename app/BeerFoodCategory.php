@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +15,14 @@ class BeerFoodCategory extends Model
 
     protected $guarded = [];
     public $translatable = ['name', 'description'];
+
+    public static function searchCategories($keyword): LengthAwarePaginator
+    {
+        return self::query()
+            ->whereRaw('lower(name) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(description) like (?)', ['%' . strtolower($keyword) . '%'])
+            ->paginate(10);
+    }
 
     public function createUser(): BelongsTo
     {

@@ -35,8 +35,8 @@
                             <th class="text-center" width="10">ID</th>
                             <th class="text-center">Naziv</th>
                             <th class="text-center">Opis</th>
-                            <th class="text-center">Izmijeni</th>
-                            <th class="text-center">Izbriši</th>
+                            <th class="text-center" width="150">Izmijeni</th>
+                            <th class="text-center" width="150">Izbriši</th>
                         </tr>
                         </thead>
                         <tbody>

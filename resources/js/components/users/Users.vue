@@ -37,8 +37,8 @@
                             <th class="text-center">Email</th>
                             <th class="text-center">Broj telefona</th>
                             <th class="text-center">Uloga</th>
-                            <th class="text-center">Izmijeni</th>
-                            <th class="text-center">Izbriši</th>
+                            <th class="text-center" width="150">Izmijeni</th>
+                            <th class="text-center" width="150">Izbriši</th>
                         </tr>
                         </thead>
                         <tbody>

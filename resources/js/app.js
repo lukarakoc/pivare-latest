@@ -30,6 +30,7 @@ import BeerQACategories from "./components/beer-qa/BeerQACategories";
 import BeerQA from "./components/beer-qa/BeerQA";
 import EMSections from "./components/equipment-maintenance/EMSections";
 import EMSteps from "./components/equipment-maintenance/EMSteps";
+import BeerFoodCategories from "./components/beer-foor-categories/BeerFoodCategories";
 
 
 require('./bootstrap');
@@ -64,7 +65,8 @@ const routes = [
     {path: '/beer-qa-categories', name: 'BeerQACategories', component: BeerQACategories},
     {path: '/beer-qa', name: 'BeerQA', component: BeerQA},
     {path: '/equipment-maintenance-sections', name: 'EMSections', component: EMSections},
-    {path: '/equipment-maintenance/:id/steps', name: 'EMSteps', component: EMSteps}
+    {path: '/equipment-maintenance/:id/steps', name: 'EMSteps', component: EMSteps},
+    {path: '/beer-food-categories', name: 'BeerFoodCategories', component: BeerFoodCategories}
 
 ];
 

@@ -72,4 +72,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/equipment-maintenance-sections/{equipmentTutorial}/update', 'EquipmentMaintenanceSectionsController@update');
     Route::delete('/equipment-maintenance-sections/{id}', 'EquipmentMaintenanceSectionsController@destroy');
     Route::get('/equipment-maintenance-sections/{keyword}/search', 'EquipmentMaintenanceSectionsController@searchEquipmentMaintenanceSections');
+
+    Route::get('/beer-food-categories', 'BeerFoodCategoryController@getBeerFoodCategories');
+    Route::get('/beer-food-categories/all', 'BeerFoodCategoryController@getAllBeerFoodCategories');
+    Route::post('/beer-food-categories/store', 'BeerFoodCategoryController@storeBeerFoodCategory');
+    Route::post('/beer-food-categories/{beerFoodCategory}/update', 'BeerFoodCategoryController@updateBeerFoodCategory');
+    Route::delete('/beer-food-categories/{id}', 'BeerFoodCategoryController@destroyBeerFoodCategory');
+    Route::get('/beer-food-categories/{keyword}/search', 'BeerFoodCategoryController@searchBeerFoodCategories');
 });
