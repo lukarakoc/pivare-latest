@@ -21,7 +21,7 @@ class CreateBeerFoodArticlesTable extends Migration
             $table->foreignId('beer_food_category_id')->constrained();
 
             $table->foreignId('create_user_id')->constrained('users');
-            $table->foreignId('update_user_id')->constrained('users');
+            $table->foreignId('update_user_id')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

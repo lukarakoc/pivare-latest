@@ -33,7 +33,8 @@ class UserRequest extends FormRequest
             'email' => 'required|email|max:255',
             'phone_number' => 'nullable|regex: #^[+]{0,1}[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$#',
             'password' => 'required|max:32',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'location_id' => 'required'
         ];
     }
 
@@ -44,7 +45,8 @@ class UserRequest extends FormRequest
             'email' => 'required|email|max:255',
             'phone_number' => 'nullable|regex: #^[+]{0,1}[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$#',
             'password' => 'nullable|max:32',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'location_id' => 'required'
         ];
     }
 

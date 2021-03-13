@@ -24,7 +24,7 @@ class CreateLocationsTable extends Migration
             $table->decimal('longitude', 10, 7)->nullable();
 
             $table->foreignId('create_user_id')->constrained('users');
-            $table->foreignId('update_user_id')->constrained('users');
+            $table->foreignId('update_user_id')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

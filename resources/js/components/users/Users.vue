@@ -36,6 +36,7 @@
                             <th class="text-center">Ime i prezime</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Broj telefona</th>
+                            <th class="text-center">Lokacija</th>
                             <th class="text-center">Uloga</th>
                             <th class="text-center" width="150">Izmijeni</th>
                             <th class="text-center" width="150">Izbriši</th>
@@ -52,6 +53,7 @@
                             <td class="text-center">{{ user.name }}</td>
                             <td class="text-center">{{ user.email }}</td>
                             <td class="text-center">{{ user.phone_number }}</td>
+                            <td class="text-center">{{ user.location === 'undefined' ? '' : user.location.name.me }}</td>
                             <td class="text-center">{{ user.role.name }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info" @click="openEditModal(user)">
@@ -127,6 +129,7 @@ export default {
                         this.pageIsLoading = false;
                     }
                 });
+            console.log(this.users[0])
         },
         openCreateModal() {
             EventBus.$emit('open-create-modal');

@@ -19,13 +19,16 @@ class UserController extends Controller
 
     public function getUsers(): JsonResponse
     {
-        $users = User::with('role')->paginate(15);
+        $users = User::with('role')->with('location')->paginate(10);
         return response()->json(['success', $users]);
     }
 
     public function store(UserRequest $request): JsonResponse
     {
         $data = $request->validated();
+        if ($request->role_id == Role::ADMIN && isset($request->location_id) && $request->location_id != '') {
+            return response()->json(['Admin ne može pripadati ni jednoj lokaciji'], 423);
+        }
         try {
             DB::beginTransaction();
             User::create($data);
@@ -50,6 +53,9 @@ class UserController extends Controller
             }
             if ($request->role_id != $user->role_id) {
                 $user->role_id = Role::where('name', $request->role)->first()->id;
+            }
+            if (isset($request->location_id) && !is_null($request->location_id) && $request->location_id != '') {
+                $user->location_id = $request->location_id;
             }
             $user->save();
             DB::commit();

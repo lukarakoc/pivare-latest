@@ -79,6 +79,21 @@
                                 {{ usersErrors.role }}
                             </small>
                         </div>
+                        <hr>
+                        <div class="form-group mx-2 mt-2">
+                            <label for="location">Lokacija *</label>
+                            <select name="location"
+                                    id="location"
+                                    class="form-control"
+                                    :class="{ 'border border-danger': usersErrors.locationErrorPresent }"
+                                    v-model="usersForm.location">
+                                <option value="" disabled selected>Izaberi lokaciju</option>
+                                <option v-for="location in locations" :value="location.id">{{ location.name.me }}</option>
+                            </select>
+                            <small class="text-danger" v-if="usersErrors.locationErrorPresent">
+                                {{ usersErrors.location }}
+                            </small>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
@@ -113,7 +128,7 @@
 </template>
 
 <script>
-import {EventBus, swalSuccess} from "../../main.js";
+import {EventBus, swalError, swalSuccess} from "../../main.js";
 
 export default {
     data() {
@@ -121,13 +136,15 @@ export default {
             storeUpdateDisabled: false,
             editmode: true,
             roles: [],
+            locations: [],
             usersForm: {
                 id: '',
                 name: '',
                 email: '',
                 password: '',
                 role: '',
-                phoneNumber: ''
+                phoneNumber: '',
+                location: ''
             },
             usersErrors: {
                 name: '',
@@ -140,6 +157,8 @@ export default {
                 roleErrorPresent: false,
                 phoneNumber: '',
                 phoneNumberErrorPresent: false,
+                location: '',
+                locationErrorPresent: false
             },
         }
     },
@@ -149,6 +168,14 @@ export default {
             this.resetUsersForm();
             this.resetUsersErrors();
             $('#create-and-edit-modal').modal('show');
+        },
+        loadLocations() {
+            axios.get(`/admin/locations`)
+                .then(response => {
+                    if (response.data[0] === "success") {
+                        this.locations = response.data[1];
+                    }
+                });
         },
         getAllRoles() {
             axios.get(`/admin/roles`)
@@ -219,6 +246,9 @@ export default {
                 this.storeUpdateDisabled = false;
                 if (error.response.status === 422) {
                     this.checkForValidationErrors(error.response.data.errors);
+                }
+                if (error.response.status === 423) {
+                    swalError(error.response.data)
                 }
                 console.log(error.response.data);
                 console.log(error.response.status);

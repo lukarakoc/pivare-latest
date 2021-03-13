@@ -15,6 +15,17 @@ class BeerFoodArticle extends Model
     protected $guarded = [];
     public $translatable = ['title', 'text'];
 
+    public static function searchArticles($keyword)
+    {
+        return self::query()
+            ->with(['category', 'photos'])
+            ->join('category as c', 'c.id', '=', 'beer_food_articles.beer_food_article_id')
+            ->whereRaw('lower(beer_food_articles.title) like (?)', ['%'. strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(beer_food_articles.text) like (?)', ['%'. strtolower($keyword) . '%'])
+            ->orWhereRaw('lower(c.name) like (?)', ['%'. strtolower($keyword) . '%'])
+            ->paginate(10);
+    }
+
     public function createUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'create_user_id', 'id');
