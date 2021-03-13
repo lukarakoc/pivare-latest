@@ -86,5 +86,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/beer-food-articles/{id}', 'BeerFoodArticleController@destroy');
     Route::get('/beer-food-articles/{keyword}/search', 'BeerFoodArticleController@searchArticles');
 
+    Route::get('/beer-food-qa', 'BeerFoodQAController@getAllQA');
+    Route::post('/beer-food-qa/store', 'BeerFoodQAController@store');
+    Route::post('/beer-food-qa/{beerQa}/update', 'BeerFoodQAController@update');
+    Route::delete('/beer-food-qa/{id}', 'BeerFoodQAController@destroy');
+    Route::get('/beer-food-qa/{keyword}/search', 'BeerFoodQAController@searchQA');
+
+    Route::get('/beer-food-qa-categories', 'BeerFoodQAController@getBeerFoodQACategories');
+    Route::get('/beer-food-qa-categories/all', 'BeerFoodQAController@getAllBeerFoodQACategories');
+    Route::post('/beer-food-qa-categories/store', 'BeerFoodQAController@storeBeerFoodQACategories');
+    Route::post('/beer-food-qa-categories/{beerQACategory}/update', 'BeerFoodQAController@updateBeerFoodQACategories');
+    Route::delete('/beer-food-qa-categories/{id}', 'BeerFoodQAController@destroyBeerFoodQACategories');
+    Route::get('/beer-food-qa-categories/{keyword}/search', 'BeerFoodQAController@searchBeerFoodQACategories');
+
     Route::get('/locations', 'LocationController@getAllLocations');
 });

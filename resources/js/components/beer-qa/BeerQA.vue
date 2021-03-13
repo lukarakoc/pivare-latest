@@ -33,8 +33,8 @@
                         <thead>
                         <tr>
                             <th class="text-center" width="10">ID</th>
-                            <th class="text-center">Naziv</th>
-                            <th class="text-center">Opis</th>
+                            <th class="text-center">Pitanje</th>
+                            <th class="text-center">Odgovor</th>
                             <th class="text-center">Kategorija</th>
                             <th class="text-center" width="150">Izmijeni</th>
                             <th class="text-center" width="150">Izbriši</th>

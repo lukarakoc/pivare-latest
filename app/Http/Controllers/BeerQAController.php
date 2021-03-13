@@ -131,7 +131,10 @@ class BeerQAController extends Controller
 
     public function destroyBeerQACategories($id): JsonResponse
     {
-        BeerQACategory::findOrFail($id)->delete();
+        $cat = BeerQACategory::findOrFail($id);
+        $qas = BeerQA::where('beer_qa_category_id', $id)->get();
+        foreach ($qas as $qa) $qa->delete();
+        $cat->delete();
         return response()->json(['success']);
     }
 

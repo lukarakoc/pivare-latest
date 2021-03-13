@@ -68,6 +68,7 @@
                                 <p>Korisnici</p>
                             </router-link>
                         </li>
+                        <li class="nav-header">Točena piva</li>
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{ path: '/beers' }">
                                 <i class="fas fa-beer nav-icon"></i>
@@ -140,6 +141,31 @@
                                 <i class="fas fa-newspaper nav-icon"></i>
                                 <p>Članci</p>
                             </router-link>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>
+                                    QA sekcija
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-food-qa-categories' }">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p>QA kategorije</p>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
+                                    <router-link class="nav-link" :to="{ path: '/beer-food-qa' }">
+                                        <i class="fas fa-question-circle nav-icon"></i>
+                                        <p>QA - pitanja i odgovori</p>
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BeerFoodArticle;
 use App\BeerFoodCategory;
 use App\Http\Requests\BeerFoodCategoryRequest;
 use Illuminate\Http\JsonResponse;
@@ -74,7 +75,10 @@ class BeerFoodCategoryController extends Controller
 
     public function destroyBeerFoodCategory($id): JsonResponse
     {
-        BeerFoodCategory::findOrFail($id)->delete();
+        $bfa = BeerFoodCategory::findOrFail($id);
+        $beerFoods = BeerFoodArticle::where('beer_food_category_id', $id)->get();
+        foreach ($beerFoods as $food) $food->delete();
+        $bfa->delete();
         return response()->json(['success']);
     }
 
