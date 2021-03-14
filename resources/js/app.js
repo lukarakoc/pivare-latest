@@ -34,6 +34,7 @@ import BeerFoodCategories from "./components/beer-foor-categories/BeerFoodCatego
 import BeerFoodArticles from "./components/beer-food-articles/BeerFoodArticles";
 import BeerFoodQA from "./components/beer-food-qa/BeerFoodQA";
 import BeerFoodQACategories from "./components/beer-food-qa/BeerFoodQACategories";
+import LocationCategories from "./components/location-categories/LocationCategories";
 
 
 require('./bootstrap');
@@ -73,6 +74,7 @@ const routes = [
     {path: '/beer-food-articles', name: "BeerFoodArticles", component: BeerFoodArticles},
     {path: '/beer-food-qa', name: "BeerFoodQA", component: BeerFoodQA},
     {path: '/beer-food-qa-categories', name: "BeerFoodQACategories", component: BeerFoodQACategories},
+    {path: '/location-categories', name: 'LocationCategories', component: LocationCategories},
 
 ];
 

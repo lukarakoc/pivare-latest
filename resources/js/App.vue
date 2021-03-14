@@ -167,6 +167,15 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="nav-header">POI sekcija</li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/location-categories' }">
+                                <i class="fas fa-list nav-icon"></i>
+                                <p>Kategorije</p>
+                            </router-link>
+                        </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->

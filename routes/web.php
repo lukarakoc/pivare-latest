@@ -99,5 +99,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/beer-food-qa-categories/{id}', 'BeerFoodQAController@destroyBeerFoodQACategories');
     Route::get('/beer-food-qa-categories/{keyword}/search', 'BeerFoodQAController@searchBeerFoodQACategories');
 
+    Route::get('/location-categories', 'LocationCategoryController@getCategories');
+    Route::get('/location-categories/all', 'LocationCategoryController@getAllCategories');
+    Route::post('/location-categories/store', 'LocationCategoryController@store');
+    Route::post('/location-categories/{locationCategory}/update', 'LocationCategoryController@update');
+    Route::delete('/location-categories/{id}', 'LocationCategoryController@destroy');
+    Route::get('/location-categories/{keyword}/search', 'LocationCategoryController@searchCategories');
+
     Route::get('/locations', 'LocationController@getAllLocations');
 });

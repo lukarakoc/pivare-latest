@@ -268,7 +268,7 @@ export default {
         },
         clearData() {
             this.resetCategoryFormErrors();
-            EventBus.$emit('load-beer-qa-categories');
+            EventBus.$emit('load-beer-food-categories');
         }
     },
     mounted() {
