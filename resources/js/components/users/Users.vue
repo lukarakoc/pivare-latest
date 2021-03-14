@@ -53,7 +53,7 @@
                             <td class="text-center">{{ user.name }}</td>
                             <td class="text-center">{{ user.email }}</td>
                             <td class="text-center">{{ user.phone_number }}</td>
-                            <td class="text-center">{{ user.location === 'undefined' ? '' : user.location.name.me }}</td>
+                            <td class="text-center">{{ user.location === null ? '' : user.location.name.me }}</td>
                             <td class="text-center">{{ user.role.name }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info" @click="openEditModal(user)">

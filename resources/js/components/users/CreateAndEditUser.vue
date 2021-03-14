@@ -81,7 +81,7 @@
                         </div>
                         <hr>
                         <div class="form-group mx-2 mt-2">
-                            <label for="location">Lokacija *</label>
+                            <label for="location">Lokacija </label>
                             <select name="location"
                                     id="location"
                                     class="form-control"
@@ -231,7 +231,9 @@ export default {
             data.append('email', this.usersForm.email);
             data.append('password', this.usersForm.password);
             data.append('role_id', this.usersForm.role);
-            data.append('phone_number', this.usersForm.phoneNumber);
+            if (this.usersForm.phoneNumber !== null) {
+                data.append('phone_number', this.usersForm.phoneNumber);
+            }
 
             const config = {headers: {'content-type': 'multipart/form-data'}};
             axios.post(`/admin/users/store`, data, config)
@@ -264,8 +266,9 @@ export default {
             data.append('email', this.usersForm.email);
             data.append('password', this.usersForm.password);
             data.append('role_id', this.usersForm.role);
-            data.append('phone_number', this.usersForm.phoneNumber);
-
+            if (this.usersForm.phoneNumber !== null) {
+                data.append('phone_number', this.usersForm.phoneNumber);
+            }
             const config = {headers: {'content-type': 'multipart/form-data'}};
             axios.post(`/admin/users/update`, data, config)
                 .then((response) => {
@@ -311,6 +314,7 @@ export default {
     mounted() {
         EventBus.$on('open-create-modal', () => this.createUser());
         EventBus.$on('open-edit-modal', user => this.editUser(user));
+        this.loadLocations();
         this.getAllRoles();
         $(this.$refs.createAndEditModalRef).on("hidden.bs.modal", this.clearData);
     }
