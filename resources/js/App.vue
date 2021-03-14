@@ -176,6 +176,13 @@
                                 <p>Kategorije</p>
                             </router-link>
                         </li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/locations' }">
+                                <i class="fas fa-map-marker-alt nav-icon"></i>
+                                <p>Lokacije</p>
+                            </router-link>
+                        </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->
             </div><!-- /.sidebar -->

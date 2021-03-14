@@ -106,5 +106,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/location-categories/{id}', 'LocationCategoryController@destroy');
     Route::get('/location-categories/{keyword}/search', 'LocationCategoryController@searchCategories');
 
-    Route::get('/locations', 'LocationController@getAllLocations');
+    Route::get('/locations', 'LocationController@getLocations');
+    Route::post('/locations/store', 'LocationController@store');
+    Route::post('/locations/{location}/update', 'LocationController@update');
+    Route::delete('/locations/{id}', 'LocationController@destroy');
+    Route::get('/locations/{keyword}/search', 'LocationController@search');
+
+    Route::get('/locations/all', 'LocationController@getAllLocations');
 });

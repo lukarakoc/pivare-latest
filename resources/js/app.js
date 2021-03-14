@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+import L from 'leaflet';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
@@ -35,6 +35,15 @@ import BeerFoodArticles from "./components/beer-food-articles/BeerFoodArticles";
 import BeerFoodQA from "./components/beer-food-qa/BeerFoodQA";
 import BeerFoodQACategories from "./components/beer-food-qa/BeerFoodQACategories";
 import LocationCategories from "./components/location-categories/LocationCategories";
+import Locations from "./components/location/Locations";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
 
 
 require('./bootstrap');
@@ -75,6 +84,7 @@ const routes = [
     {path: '/beer-food-qa', name: "BeerFoodQA", component: BeerFoodQA},
     {path: '/beer-food-qa-categories', name: "BeerFoodQACategories", component: BeerFoodQACategories},
     {path: '/location-categories', name: 'LocationCategories', component: LocationCategories},
+    {path: '/locations', name: 'Locations', component: Locations},
 
 ];
 

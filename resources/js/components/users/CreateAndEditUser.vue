@@ -170,7 +170,7 @@ export default {
             $('#create-and-edit-modal').modal('show');
         },
         loadLocations() {
-            axios.get(`/admin/locations`)
+            axios.get(`/admin/locations/all`)
                 .then(response => {
                     if (response.data[0] === "success") {
                         this.locations = response.data[1];

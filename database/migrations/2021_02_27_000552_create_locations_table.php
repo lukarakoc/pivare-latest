@@ -20,6 +20,8 @@ class CreateLocationsTable extends Migration
             $table->text('address');
             $table->foreignId('location_category_id')->constrained();
             $table->string('logo');
+            $table->string('hash_route')->nullable();
+            $table->string('qr_code')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
 
