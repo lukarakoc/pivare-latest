@@ -9,6 +9,7 @@ use App\Role;
 use App\Traits\FileHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class LocationController extends Controller
 {
@@ -40,6 +41,7 @@ class LocationController extends Controller
 //        dd($data);
 //        try {
         DB::beginTransaction();
+        $hashRoute = env('APP_URL') . '/admin/' . Str::random(100);
         $location = Location::create([
             'name' => [
                 'me' => $data['names'][0],
@@ -53,6 +55,7 @@ class LocationController extends Controller
                 'me' => $data['addresses'][0],
                 'en' => $data['addresses'][1]
             ],
+            'hash_route' => $hashRoute,
             'logo' => self::storeFileFromBase64($data['logo'], 'logos'),
             'location_category_id' => $data['category_id'],
             'latitude' => $data['latitude'],

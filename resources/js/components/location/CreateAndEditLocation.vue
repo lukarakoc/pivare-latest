@@ -84,10 +84,12 @@
                                      :src="loadImage"
                                      v-if="loadImage">
                             </div>
-                            <div class="my-img">
+                            <div class="form-group mx-2 mt-2">
                                 <label for="">Logotip *</label>
+                                <br>
                                 <input type="file" id="image" multiple accept="image/*"
-                                       @change="handleSelectsSingle" name="image">
+                                       @change="handleSelectsSingle" name="image"
+                                       :class="{ 'border border-danger': this.locationErrors.photosErrorPresent}">
                             </div>
                             <small class="text-danger" v-if="locationErrors.imageErrorPresent">
                                 {{ locationErrors.image }}
@@ -103,6 +105,9 @@
                              :class="{ 'border border-danger': this.locationErrors.photosErrorPresent}">
                             <input type="file" id="images" multiple accept="image/*"
                                    @change="handleSelects" name="images">
+                            <small class="text-danger" v-if="locationErrors.photosErrorPresent">
+                                {{ locationErrors.photos }}
+                            </small>
                             <div v-for="(image, i) in this.locationForm.images" class="mt-2">
                                 <div class="container">
                                     <img :src="image" class="preview image border" alt="image" width="150"
@@ -474,8 +479,8 @@ export default {
                 this.locationErrors.addressErrorPresent = true;
             }
 
-            if (errors.hasOwnProperty('location_category_id')) {
-                this.locationErrors.category = errors["location_category_id"][0];
+            if (errors.hasOwnProperty('category_id')) {
+                this.locationErrors.category = errors["category_id"][0];
                 this.locationErrors.categoryErrorPresent = true;
             }
 
