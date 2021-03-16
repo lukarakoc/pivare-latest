@@ -112,5 +112,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/locations/{id}', 'LocationController@destroy');
     Route::get('/locations/{keyword}/search', 'LocationController@search');
 
+    Route::get('/locations-discounts/{id}', 'LocationDiscountController@getDiscountsByLocation');
+    Route::post('/locations-discounts/store', 'LocationDiscountController@store');
+    Route::post('/locations-discounts/{discount}/update', 'LocationDiscountController@update');
+    Route::delete('/locations-discounts/{id}', 'LocationDiscountController@destroy');
+
     Route::get('/locations/all', 'LocationController@getAllLocations');
+    Route::get('/users/owners', 'UserController@getOwners');
 });

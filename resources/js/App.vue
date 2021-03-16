@@ -47,13 +47,20 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false" v-show="userRole === 'head-admin'">
+                        data-accordion="false" v-show="userRole === 'owner'">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{ path: '/users' }">
                                 <i class="fas fa-users nav-icon"></i>
                                 <p>Korisnici</p>
+                            </router-link>
+                        </li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ path: '/locations' }">
+                                <i class="fas fa-map-marker-alt nav-icon"></i>
+                                <p>Lokacije</p>
                             </router-link>
                         </li>
                     </ul>

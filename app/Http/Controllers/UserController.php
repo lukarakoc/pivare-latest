@@ -6,7 +6,6 @@ use App\Http\Requests\UserRequest;
 use App\Role;
 use App\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,8 +29,16 @@ class UserController extends Controller
             return response()->json(['Admin ne može pripadati ni jednoj lokaciji'], 423);
         }
         try {
+            $data['temporary_password'] = $data['password'];
             DB::beginTransaction();
-            User::create($data);
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone_number' => $data['phone_number'],
+                'role_id' => $data['role_id'],
+                'temporary_password' => $data['password']
+            ]);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -52,10 +59,7 @@ class UserController extends Controller
                 $user->password = Hash::make($request->password);
             }
             if ($request->role_id != $user->role_id) {
-                $user->role_id = Role::where('name', $request->role)->first()->id;
-            }
-            if (isset($request->location_id) && !is_null($request->location_id) && $request->location_id != '') {
-                $user->location_id = $request->location_id;
+                $user->role_id = Role::where('id', $request->role_id)->first()->id;
             }
             $user->save();
             DB::commit();
@@ -84,5 +88,10 @@ class UserController extends Controller
     public function getAllRoles(): JsonResponse
     {
         return response()->json(['success', Role::all()]);
+    }
+
+    public function getOwners(): JsonResponse
+    {
+        return response()->json(['success', User::getOwners()]);
     }
 }

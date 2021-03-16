@@ -34,7 +34,6 @@ class UserRequest extends FormRequest
             'phone_number' => 'nullable|regex: #^[+]{0,1}[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$#',
             'password' => 'required|max:32',
             'role_id' => 'required',
-            'location_id' => 'nullable'
         ];
     }
 
@@ -46,7 +45,6 @@ class UserRequest extends FormRequest
             'phone_number' => 'nullable|regex: #^[+]{0,1}[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$#',
             'password' => 'nullable|max:32',
             'role_id' => 'required',
-            'location_id' => 'nullqble'
         ];
     }
 

@@ -36,6 +36,7 @@ import BeerFoodQA from "./components/beer-food-qa/BeerFoodQA";
 import BeerFoodQACategories from "./components/beer-food-qa/BeerFoodQACategories";
 import LocationCategories from "./components/location-categories/LocationCategories";
 import Locations from "./components/location/Locations";
+import LocationDiscounts from "./components/location-discounts/LocationDiscounts";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -85,6 +86,7 @@ const routes = [
     {path: '/beer-food-qa-categories', name: "BeerFoodQACategories", component: BeerFoodQACategories},
     {path: '/location-categories', name: 'LocationCategories', component: LocationCategories},
     {path: '/locations', name: 'Locations', component: Locations},
+    {path: '/locations/:id/discounts', name: 'LocationDiscounts', component: LocationDiscounts}
 
 ];
 

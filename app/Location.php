@@ -46,4 +46,9 @@ class Location extends Model
     {
         return $this->hasMany(LocationPhoto::class, 'location_id', 'id');
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
 }

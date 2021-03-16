@@ -46,6 +46,7 @@ class LocationRequest extends FormRequest
             'longitude' => 'required',
             'photos' => 'required|array|min:1',
             'photos.*' => 'required',
+            'owner' => 'required'
         ];
     }
 
@@ -64,7 +65,8 @@ class LocationRequest extends FormRequest
             'longitude' => 'required',
             'photos' => 'nullable|array',
             'photos.*' => 'nullable',
-            'delete_photos' => 'nullable'
+            'delete_photos' => 'nullable',
+            'owner' => 'required'
         ];
     }
 
@@ -86,6 +88,7 @@ class LocationRequest extends FormRequest
             'longitude.required' => 'Morate označiti lokaciju na mapi',
             'photos.required' => 'Morate dodati slike za lokaciju',
             'photos.*.required' => 'Morate dodati slike za lokaciju',
+            'owner.required' => 'Morate odabrati vlasnika'
         ];
     }
 }

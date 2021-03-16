@@ -190,8 +190,6 @@ export default {
     },
     mounted() {
         this.loadSteps();
-        console.log('id je ' + this.$route.params.id);
-        console.log("Section id je " + this.section);
         this.$emit('loadBreadcrumbLink', {url: '/emSteps', pageName: 'Tutorijal o održavanju opreme'});
         EventBus.$on('load-emSteps', () => this.loadSteps());
     }

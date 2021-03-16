@@ -77,6 +77,24 @@
                         </div>
                         <hr>
                         <div class="form-group mx-2 mt-2">
+                            <label for="owner">Vlasnik *</label>
+                            <select name="owner"
+                                    id="owner"
+                                    class="form-control"
+                                    :class="{ 'border border-danger': locationErrors.ownerErrorPresent }"
+                                    v-model="locationForm.owner">
+                                <option value="" disabled selected>Izaberi ulogu</option>
+                                <option v-for="owner in owners" :value="owner.id">{{
+                                        owner.name
+                                    }}
+                                </option>
+                            </select>
+                            <small class="text-danger" v-if="locationErrors.ownerErrorPresent">
+                                {{ locationErrors.owner }}
+                            </small>
+                        </div>
+                        <hr>
+                        <div class="form-group mx-2 mt-2">
                             <div class="text-center">
                                 <img class="rounded mx-auto"
                                      alt="Image"
@@ -96,9 +114,14 @@
                             </small>
                         </div>
                         <hr>
-                        <div class="form-group mx-2 mt-2">
+                        <div class="form-group mx-2 mt-2"
+                             :style="{'border border-danger' : locationErrors.latitudeErrorPresent || locationErrors.longitudeErrorPresent}">
                             <label for="map">Lokacija na mapi</label>
                             <map-leaflet id="map"></map-leaflet>
+                            <small class="text-danger"
+                                   v-if="locationErrors.latitudeErrorPresent || locationErrors.longitudeErrorPresent">
+                                Morate označiti lokaciju na mapi
+                            </small>
                         </div>
                         <hr>
                         <div class="form-group mx-2 mt-2" v-cloak
@@ -187,6 +210,7 @@ export default {
             editor: ClassicEditor,
             languages: [],
             categories: [],
+            owners: [],
             editorConfig: {
                 toolbar: {
                     items: [
@@ -217,6 +241,7 @@ export default {
                 image: '',
                 latitude: '',
                 longitude: '',
+                owner: '',
                 deletePhotos: [],
                 loadPhotos: []
             },
@@ -241,6 +266,8 @@ export default {
                 longitudeErrorPresent: false,
                 category: [],
                 categoryErrorPresent: false,
+                owner: '',
+                ownerErrorPresent: false
             }
         }
     },
@@ -256,6 +283,14 @@ export default {
                 .then(response => {
                     if (response.data[0] === 'success') {
                         this.languages = response.data[1];
+                    }
+                })
+        },
+        getOwners() {
+            axios.get('/admin/users/owners')
+                .then(response => {
+                    if (response.data[0] === 'success') {
+                        this.owners = response.data[1];
                     }
                 })
         },
@@ -310,6 +345,7 @@ export default {
                 }
             }
             form.append('category_id', this.locationForm.category);
+            form.append('owner', this.locationForm.owner);
             form.append('latitude', this.locationForm.latitude);
             form.append('longitude', this.locationForm.longitude);
             this.locationForm.images.forEach(image => {
@@ -363,6 +399,7 @@ export default {
                 }
             }
             form.append('category_id', this.locationForm.category);
+            form.append('owner', this.locationForm.owner);
             form.append('latitude', this.locationForm.latitude);
             form.append('longitude', this.locationForm.longitude);
             this.locationForm.images.forEach(image => {
@@ -407,6 +444,7 @@ export default {
             this.locationForm.images = [];
             this.locationForm.latitude = '';
             this.locationForm.longitude = '';
+            this.locationForm.owner = '';
             $('#images').val('');
             this.locationForm.category = '';
             this.locationForm.image = '';
@@ -435,6 +473,10 @@ export default {
             this.locationErrors.category = [];
             this.locationErrors.categoryErrorPresent = false;
             this.loadImage = '';
+            this.locationErrors.owner = '';
+            this.locationErrors.ownerErrorPresent = false;
+            $('#images').val('');
+            $('#image').val('');
         },
         fillForm(location) {
             this.locationForm.id = location.id
@@ -449,6 +491,7 @@ export default {
             this.locationForm.longitude = location.latitude;
             this.loadImage = location.logo;
             this.locationForm.loadPhotos = location.photos;
+            this.locationForm.owner = location.owner_id;
         },
         checkForValidationErrors(errors) {
 
@@ -497,6 +540,11 @@ export default {
             if (errors.hasOwnProperty('logo')) {
                 this.locationErrors.image = errors["logo"][0];
                 this.locationErrors.imageErrorPresent = true;
+            }
+
+            if (errors.hasOwnProperty('owner')) {
+                this.locationErrors.owner = errors["owner"][0];
+                this.locationErrors.ownerErrorPresent = true;
             }
 
             if (errors.hasOwnProperty('photos')) {
@@ -583,6 +631,7 @@ export default {
     mounted() {
         this.getAllLanguages();
         this.loadCategories();
+        this.getOwners();
         EventBus.$on('open-create-modal', () => this.createLocation());
         EventBus.$on('open-edit-modal', location => this.editLocation(location));
         $(this.$refs.createAndEditModalRef).on("hidden.bs.modal", this.clearData);

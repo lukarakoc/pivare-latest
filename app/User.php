@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'name', 'email', 'password', 'role_id', 'temporary_password'
     ];
 
     /**
@@ -47,6 +46,14 @@ class User extends Authenticatable
             ->whereRaw('LOWER(name) LIKE (?)', ['%' . strtolower($keyword) . '%'])
             ->orWhereRaw('LOWER(email) LIKE (?)', ['%' . strtolower($keyword) . '%'])
             ->paginate(10);
+    }
+
+    public static function getOwners()
+    {
+        return self::query()
+            ->with('role')
+            ->where('role_id', '=', Role::OWNER)
+            ->get();
     }
 
 

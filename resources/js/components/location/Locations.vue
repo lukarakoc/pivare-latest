@@ -36,6 +36,7 @@
                             <th class="text-center">Naziv</th>
                             <th class="text-center">Adresa</th>
                             <th class="text-center">Kategorija</th>
+                            <th class="text-center" width="150">Popust</th>
                             <th class="text-center" width="150">Izmijeni</th>
                             <th class="text-center" width="150">Izbriši</th>
                         </tr>
@@ -51,6 +52,13 @@
                             <td class="text-center">{{ location.name.me }}</td>
                             <td class="text-center">{{ location.address.me }}</td>
                             <td class="text-center" v-html="location.category.name.me"></td>
+                            <td class="text-center">
+                                <router-link :to="{ name: 'LocationDiscounts', params: { id: location.id }}"
+                                             class="btn btn-primary btn-sm">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    Popust
+                                </router-link>
+                            </td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info" @click="openEditModal(location)">
                                     <i class="fas fa-edit"></i>
