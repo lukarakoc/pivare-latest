@@ -45,9 +45,7 @@ export default {
         }
     },
     mounted() {
-        setTimeout(function () {
-            window.dispatchEvent(new Event('resize'))
-        }, 250);
+
     }
 };
 </script>

@@ -312,6 +312,9 @@ export default {
             this.resetLocationFormErrors();
             $('#create-and-edit-modal').modal();
             $('.img-preview').attr('style', 'display: none !important');
+            setTimeout(function () {
+                window.dispatchEvent(new Event('resize'))
+            }, 1000);
         },
         editLocation(location) {
             this.editmode = true;
@@ -320,6 +323,9 @@ export default {
             this.fillForm(location);
             $('#create-and-edit-modal').modal("show");
             $('.img-preview').attr('style', 'display: none !important');
+            setTimeout(function () {
+                window.dispatchEvent(new Event('resize'))
+            }, 1000);
         },
         storeLocation() {
             this.resetLocationFormErrors();

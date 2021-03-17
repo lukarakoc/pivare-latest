@@ -136,7 +136,6 @@ export default {
                 });
         },
         openCreateModal() {
-            window.dispatchEvent(new Event('resize'));
             EventBus.$emit('open-create-modal');
         },
         openEditModal(location) {
