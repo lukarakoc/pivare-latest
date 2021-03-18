@@ -62,7 +62,8 @@
                                  :style="{'border border-danger' : discountErrors.dateFromErrorPresent}">
                                 <flat-pickr v-model="discountForm.dateFrom" :config="configDate"
                                             placeholder="Izaberi datum od" name="birthdate"
-                                            class="form-control"></flat-pickr>
+                                            class="form-control"
+                                            :style="{'border border-danger' : discountErrors.dateToErrorPresent}"></flat-pickr>
                                 <div class="input-group-append">
                                     <button class="btn btn-default" type="button" title="Toggle" data-toggle>
                                         <i class="fa fa-calendar">
@@ -87,7 +88,8 @@
                                  :style="{'border border-danger' : discountErrors.dateToErrorPresent}">
                                 <flat-pickr v-model="discountForm.dateTo" :config="configDate"
                                             placeholder="Izaberi datum do" name="birthdate"
-                                            class="form-control"></flat-pickr>
+                                            class="form-control"
+                                            :style="{'border border-danger' : discountErrors.dateToErrorPresent}"></flat-pickr>
                                 <div class="input-group-append">
                                     <button class="btn btn-default" type="button" title="Toggle" data-toggle>
                                         <i class="fa fa-calendar">
@@ -373,7 +375,7 @@ export default {
             }
 
             if (errors.hasOwnProperty('date_from')) {
-                this.discountErrors.dateFrom = errors["date_From"][0];
+                this.discountErrors.dateFrom = errors["date_from"][0];
                 this.discountErrors.dateFromErrorPresent = true;
             }
 

@@ -49,7 +49,7 @@ class LocationController extends Controller
 
         try {
             DB::beginTransaction();
-            $hashRoute = env('APP_URL') . '/admin/' . Str::random(100);
+            $hashRoute = env('APP_URL') . '/coupon/' . Str::random(100);
             $path = public_path('/qr-codes/' . $this->getRandom(30) . '.png');
             $location = Location::create([
                 'name' => [
