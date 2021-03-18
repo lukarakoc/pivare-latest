@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,5 +66,10 @@ class User extends Authenticatable
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
+    public function permissions(): HasMany
+    {
+        return $this->hasMany(UserPermission::class)->with('permission');
     }
 }

@@ -119,4 +119,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('/locations/all', 'LocationController@getAllLocations');
     Route::get('/users/owners', 'UserController@getOwners');
+    Route::get('/logged-user', 'HomeController@adminInfo');
+
+    Route::get('/user-permissions/{id}', 'PermissionController@getUserPermissionsByUser');
+    Route::get('/user-permissions', 'PermissionController@getAllPermissions');
+    Route::post('/user-permissions/{id}/save', 'PermissionController@savePermissions');
 });

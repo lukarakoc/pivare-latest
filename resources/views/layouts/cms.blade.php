@@ -26,9 +26,14 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-3/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet"
-          href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css') }}" crossorigin="anonymous">
+          href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css') }}"
+          crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
-    <link href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700') }}" rel="stylesheet">
+    <link href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700') }}"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('AdminLTE-3/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -37,6 +42,7 @@
         #content td {
             vertical-align: middle;
         }
+
         .input-group.form-control.input {
             background-color: #fff;
         }

@@ -35,9 +35,9 @@
                             <th class="text-center" width="10">ID</th>
                             <th class="text-center">Ime i prezime</th>
                             <th class="text-center">Email</th>
-                            <th class="text-center">Broj telefona</th>
                             <th class="text-center">Lokacija</th>
                             <th class="text-center">Uloga</th>
+                            <th class="text-center" width="150" v-if="loggedUserInfo.role_id === 1">Permisije</th>
                             <th class="text-center" width="150">Izmijeni</th>
                             <th class="text-center" width="150">Izbriši</th>
                         </tr>
@@ -52,9 +52,15 @@
                             <td class="text-center">{{ user.id }}</td>
                             <td class="text-center">{{ user.name }}</td>
                             <td class="text-center">{{ user.email }}</td>
-                            <td class="text-center">{{ user.phone_number }}</td>
                             <td class="text-center">{{ user.location === null ? '' : user.location.name.me }}</td>
                             <td class="text-center">{{ user.role.name }}</td>
+                            <td class="text-center" v-if="loggedUserInfo.role_id === 1">
+                                <button class="btn btn-sm btn-primary" @click="openPermissionsModal(user.id)"
+                                        v-if="user.role.id === 2">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Permisije
+                                </button>
+                            </td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info" @click="openEditModal(user)">
                                     <i class="fas fa-edit"></i>
@@ -96,7 +102,7 @@
             </div>
         </div>
         <create-and-edit-user :users="users"/>
-
+        <permissions-modal/>
     </div>
 </template>
 
@@ -104,22 +110,36 @@
 import {EventBus, swalError, swalSuccess} from "../../main.js";
 import CreateAndEditUser from "./CreateAndEditUser";
 import Spinner from "../Spinner";
+import PermissionsModal from "./permissions/PermissionsModal";
 
 export default {
     components: {
         CreateAndEditUser,
-        Spinner
+        Spinner,
+        PermissionsModal
     },
     data() {
         return {
             pageIsLoading: true,
             searchMode: false,
+            loggedUserInfo: '',
             searchKeyword: "",
             users: [],
             usersPagination: {},
         };
     },
     methods: {
+        loadLoggedUser() {
+            axios.get(`/admin/logged-user`)
+                .then(response => {
+                    if (response.data[0] === "success") {
+                        this.loggedUserInfo = response.data[1];
+                    }
+                });
+        },
+        openPermissionsModal(user) {
+            EventBus.$emit('open-permissions-modal', user)
+        },
         loadUsers(page = 1) {
             axios.get(`/admin/users`)
                 .then(response => {
@@ -129,7 +149,6 @@ export default {
                         this.pageIsLoading = false;
                     }
                 });
-            console.log(this.users[0])
         },
         openCreateModal() {
             EventBus.$emit('open-create-modal');
@@ -191,6 +210,7 @@ export default {
         },
     },
     mounted() {
+        this.loadLoggedUser();
         this.loadUsers();
         this.$emit('loadBreadcrumbLink', {url: '/users', pageName: 'Korisnici'});
         EventBus.$on('load-users', () => this.loadUsers());
